@@ -1,42 +1,25 @@
 import pygame
 import random
 class Game:
-    def __init__(self, bird_img, pipe_img, background_img, ground_img, bill_img):
+    def __init__(self, bird_img):
         self.bird = pygame.image.load(bird_img).convert_alpha()
-        self.pipe = pygame.image.load(pipe_img).convert_alpha()
-        self.background =pygame.image.load(background_img).convert_alpha()
-        self.ground = pygame.image.load(ground_img).convert_alpha()
-        self.bill = pygame.image.load(bill_img).convert_alpha()
-        self.ground_position = 0
         self.active = True
-        self.fif_sec = False
         self.gravity = 0.07
         self.bird_movement = 0
         self.rotated_bird = pygame.Surface((0,0))
-        self.pipes = []
-        self.pipe_height = [280, 425, 562, 500, 400, 290]
-        self.bills = []
-        self.bill_height = [200, 300, 180, 350, 600]
-        self.score = 0
-        self.font = pygame.font.SysFont(None, 48)
-        self.high_score = 0
 
 
     def resize_images(self):
         self.bird = pygame.transform.scale(self.bird, (51, 34))
-        self.pipe = pygame.transform.scale(self.pipe, (80, 438))
-        self.background = pygame.transform.scale(self.background, (400, 720))
-        self.ground = pygame.transform.scale(self.ground, (470, 160))
-        self.bill = pygame.transform.scale(self.bill, (70, 32))
         self.bird_rect = self.bird.get_rect(center = (70, 180))
-    def show_background(self, screen):
+    """def show_background(self, screen):
         screen.blit(self.background, (0,0))
     def show_ground(self, screen):
         screen.blit(self.ground, (self.ground_position, 650))
     def move_ground(self):
         self.ground_position -= 2
         self.ground_position %= 45
-        self.ground_position -= 45
+        self.ground_position -= 45"""
     def show_bird(self, screen):
         screen.blit(self.rotated_bird, self.bird_rect)
     def update_bird(self):
@@ -49,50 +32,12 @@ class Game:
     def flap(self):
         self.bird_movement = 0
         self.bird_movement -= 4.0 
-    def add_pipe(self):
-        random_pipe_pos = random.choice(self.pipe_height)
-        bottom_pipe = self.pipe.get_rect(midtop = (600, random_pipe_pos))
-        top_pipe = self.pipe.get_rect(midbottom = (600, random_pipe_pos - 211))
-        self.pipes.append(bottom_pipe)
-        self.pipes.append(top_pipe)
-    def move_pipe(self):
-        for pipe in self.pipes:
-            pipe.centerx -= 2
-            if pipe.centerx <= -40:
-                self.pipes.remove(pipe)
-    def show_pipes(self, screen):
-        for pipe in self.pipes:
-            if pipe.bottom >= 700:
-                screen.blit(self.pipe, pipe)
-            else:
-                flip_pipe = pygame.transform.flip(self.pipe, False, True)
-                screen.blit(flip_pipe, pipe) 
-    def add_bill(self):
-        random_bill_pos = random.choice(self.bill_height)
-        bill = self.bill.get_rect(midtop = (600, random_bill_pos))
-        self.bills.append(bill)
-    def move_bill(self):
-        for bill in self.bills:
-            bill.centerx -= 5
-            if random.randint(1,3) == 1:
-                bill.centery -=0.5
-            if bill.centerx <= -40:
-                self.bills.remove(bill)
-    def rotate_bill(self):
-        new_bill = pygame.transform.rotozoom(self.bill, -self.move_bill * 5, 1)
-        return new_bill
-    def show_bill(self, screen):
-        for bill in self.bills:
-            screen.blit(self.bill, bill)
-    def check_collision(self):
+"""def check_collision(self):
         for pipe in self.pipes:
             if self.bird_rect.colliderect(pipe):
                 self.active = False
         if self.bird_rect.top <= -100 or self.bird_rect.bottom >= 650:
             self.active = False
-        for bill in self.bills:
-            if self.bird_rect.colliderect(bill):
-                self.active = False
     def update_score(self):
         self.score += 0.01
     def show_score(self, game_state, screen, color):
@@ -121,7 +66,7 @@ class Game:
         del self.bills[:]
         self.bird_rect.center = (70, 180)
         self.bird_movement = 0
-        self.score = 0
+        self.score = 0"""
 
 
 
